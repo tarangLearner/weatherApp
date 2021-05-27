@@ -1,0 +1,27 @@
+<div class="container-fluid" *ngIf="next5DaysData.length > 0">
+  <div class="row content">
+    <h3 class="text-center py-2">{{forecastDetails?.city.name}}</h3>
+    <div class="col-4 py-2" *ngFor="let weather of next5DaysData">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{weather.date}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{weather.time}}</h6>
+          <p class="card-text"><span>Temperature:
+              <span
+                *ngIf="weather.temp else notAvailable">{{convertKelvinToCelsius(weather.temp)}}<sup>&#7506;</sup>C</span>
+            </span></p>
+          <p class="card-text">
+            <span>Sea Level:
+              <span *ngIf="weather.sea_level else notAvailable">{{weather.sea_level}}</span>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="w-100" (click)='goBack()'>Back to Home</button>
+</div>
+
+<ng-template #notAvailable>
+  <span style="font-size: 0.75rem;">Not Available at a moment</span>
+</ng-template>

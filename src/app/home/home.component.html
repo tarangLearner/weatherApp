@@ -1,0 +1,31 @@
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-4 py-2" *ngFor="let weather of weatherResponse">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{weather.name}}</h5>
+          <h6 class="card-subtitle mb-2 text-muted">{{weather.weather[0].description}}</h6>
+          <p class="card-text"><span>Temperature:
+              <span
+                *ngIf="weather.main?.temp else notAvailable">{{convertKelvinToCelsius(weather.main.temp)}}<sup>&#7506;</sup>C</span>
+            </span></p>
+          <p class="card-text">
+            <span>Sun Rise:
+              <span *ngIf="weather.sys?.sunrise else notAvailable">{{weather.sys?.sunrise}}</span>
+            </span>
+          </p>
+          <p class="card-text">
+            <span>Sun Set:
+              <span *ngIf="weather.sys?.sunset else notAvailable">{{weather.sys?.sunset}}</span>
+            </span>
+          </p>
+          <a routerLink='/weather/{{weather.name}}' class="btn btn-primary">Next 5 Days weather</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notAvailable>
+  <span style="font-size: 0.75rem;">Not Available at a moment</span>
+</ng-template>
